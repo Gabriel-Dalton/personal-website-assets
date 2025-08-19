@@ -1,1 +1,0 @@
-    list.sort((a,b)====b.type? a.name.localeCompare(b.name) : a.type==="dir"? -1 : 1));
