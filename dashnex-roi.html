@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DashNex Affiliate ROI Dashboard – assets.gabrieldalton.com</title>
+  <meta name="description" content="Interactive calculator to track DashNex affiliate payments, payouts, and ROI projections." />
+  <meta name="color-scheme" content="light dark" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+  <main class="min-h-full bg-gradient-to-b from-slate-100 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-6">
+    <section class="mx-auto flex w-full max-w-5xl flex-col gap-6">
+      <nav class="flex justify-end">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:border-slate-700"
+        >
+          <span aria-hidden="true">←</span>
+          Back to CDN home
+        </a>
+      </nav>
+      <header class="rounded-2xl border border-slate-200 bg-white/90 p-8 shadow-xl backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
+        <h1 class="text-3xl font-bold tracking-tight text-center">DashNex Affiliate ROI Tracker</h1>
+        <p class="mt-3 text-center text-sm text-slate-600 dark:text-slate-300">
+          Interactive dashboard to monitor your DashNex affiliate payments, revenue, and projected return on investment.
+        </p>
+      </header>
+
+      <section class="grid gap-6 md:grid-cols-2">
+        <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-900" aria-labelledby="roi-overview-title">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 id="roi-overview-title" class="text-lg font-semibold text-slate-900 dark:text-slate-100">ROI overview</h2>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">A summary of your affiliate investment to date.</p>
+            </div>
+            <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300" id="payback-status">On track</span>
+          </div>
+
+          <dl class="mt-6 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2" id="summary-grid">
+            <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <dt class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Total invested</dt>
+              <dd class="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100" id="total-invested">$0.00</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <dt class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Revenue received</dt>
+              <dd class="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100" id="total-received">$0.00</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <dt class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Net profit</dt>
+              <dd class="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100" id="net-profit">$0.00</dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <dt class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">ROI</dt>
+              <dd class="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100"><span id="roi-percentage">0</span>%</dd>
+            </div>
+          </dl>
+
+          <div class="mt-6 grid gap-4 text-xs text-slate-600 dark:text-slate-300 sm:grid-cols-3">
+            <p><span class="font-semibold text-slate-900 dark:text-slate-100" id="payment-count">0</span> payments made</p>
+            <p><span class="font-semibold text-slate-900 dark:text-slate-100" id="payout-count">0</span> payouts received</p>
+            <p>Payback status: <span class="font-semibold text-slate-900 dark:text-slate-100" id="payback-label">Pending</span></p>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-900" aria-labelledby="roi-estimator-title">
+          <h2 id="roi-estimator-title" class="text-lg font-semibold text-slate-900 dark:text-slate-100">ROI estimator</h2>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Quickly model how future payouts change your ROI. Adjust the projected revenue slider or enter an exact value below.
+          </p>
+
+          <label for="projected-revenue" class="mt-6 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Projected additional revenue ($)</label>
+          <input type="range" id="projected-revenue" min="0" max="2000" value="0" step="10" class="mt-2 w-full accent-emerald-500" />
+          <div class="mt-3 flex items-center gap-2">
+            <input type="number" id="projected-revenue-input" min="0" step="10" value="0" class="w-32 rounded-lg border border-slate-200 bg-white p-2 text-sm text-slate-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" />
+            <button type="button" id="reset-estimator" class="rounded-lg border border-transparent bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">Reset</button>
+          </div>
+
+          <dl class="mt-6 space-y-3 rounded-xl bg-slate-50 p-4 text-sm text-slate-700 shadow-inner dark:bg-slate-800/60 dark:text-slate-200">
+            <div class="flex items-center justify-between">
+              <dt>Projected total revenue</dt>
+              <dd class="font-semibold" id="projected-total-revenue">$0.00</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt>Projected net profit</dt>
+              <dd class="font-semibold" id="projected-net-profit">$0.00</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt>Projected ROI</dt>
+              <dd class="font-semibold"><span id="projected-roi">0</span>%</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="grid gap-6 lg:grid-cols-2">
+        <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-900" aria-labelledby="payments-title">
+          <h2 id="payments-title" class="text-lg font-semibold text-slate-900 dark:text-slate-100">Payments to DashNex</h2>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Track every invoice you've paid to DashNex for affiliate services.</p>
+
+          <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+            <table class="min-w-full divide-y divide-slate-200 text-sm dark:divide-slate-800">
+              <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+                <tr>
+                  <th scope="col" class="px-4 py-3 text-left">Date</th>
+                  <th scope="col" class="px-4 py-3 text-left">Invoice</th>
+                  <th scope="col" class="px-4 py-3 text-left">Method</th>
+                  <th scope="col" class="px-4 py-3 text-right">Amount</th>
+                  <th scope="col" class="px-4 py-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="payments-body" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-900" aria-labelledby="payouts-title">
+          <h2 id="payouts-title" class="text-lg font-semibold text-slate-900 dark:text-slate-100">Affiliate payouts received</h2>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Payments you've received from DashNex for affiliate activity.</p>
+
+          <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+            <table class="min-w-full divide-y divide-slate-200 text-sm dark:divide-slate-800">
+              <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+                <tr>
+                  <th scope="col" class="px-4 py-3 text-left">Date</th>
+                  <th scope="col" class="px-4 py-3 text-left">Type</th>
+                  <th scope="col" class="px-4 py-3 text-right">Amount</th>
+                  <th scope="col" class="px-4 py-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="payouts-body" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <footer class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">
+        © <span class="tabular-nums" id="year"></span> gabrieldalton.com
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const payments = [
+      { date: 'Aug 26, 2025', invoice: 'DNX56985', method: 'DashNex', amount: 147, status: 'Paid' },
+      { date: 'Aug 26, 2024', invoice: 'DNX50115', method: 'DashNex', amount: 147, status: 'Paid' },
+    ];
+
+    const payouts = [
+      { date: 'Dec 26, 2024 19:56', type: 'PayPal', amount: 156.5, status: 'Paid' },
+      { date: 'Oct 20, 2024 20:32', type: 'PayPal', amount: 164.5, status: 'Paid' },
+    ];
+
+    const numberFormatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+    });
+
+    const totalInvested = payments.reduce((sum, payment) => sum + payment.amount, 0);
+    const totalReceived = payouts.reduce((sum, payout) => sum + payout.amount, 0);
+    const netProfit = totalReceived - totalInvested;
+    const roi = totalInvested === 0 ? 0 : ((netProfit / totalInvested) * 100);
+
+    function updateSummary() {
+      document.getElementById('total-invested').textContent = numberFormatter.format(totalInvested);
+      document.getElementById('total-received').textContent = numberFormatter.format(totalReceived);
+      document.getElementById('net-profit').textContent = numberFormatter.format(netProfit);
+      document.getElementById('roi-percentage').textContent = roi.toFixed(1);
+
+      document.getElementById('payment-count').textContent = payments.length;
+      document.getElementById('payout-count').textContent = payouts.length;
+
+      const paybackLabel = document.getElementById('payback-label');
+      const paybackStatus = document.getElementById('payback-status');
+      if (netProfit >= 0) {
+        paybackLabel.textContent = 'Break-even reached';
+        paybackStatus.textContent = 'Profitable';
+        paybackStatus.classList.remove('bg-emerald-100', 'text-emerald-700');
+        paybackStatus.classList.add('bg-emerald-500/10', 'text-emerald-400');
+      } else {
+        paybackLabel.textContent = 'Still recovering';
+        paybackStatus.textContent = 'In progress';
+        paybackStatus.classList.add('bg-amber-100', 'text-amber-700');
+      }
+    }
+
+    function populateTable(data, tableBodyId, columns) {
+      const tbody = document.getElementById(tableBodyId);
+      data.forEach((row) => {
+        const tr = document.createElement('tr');
+        tr.className = 'bg-white hover:bg-slate-50 transition-colors dark:bg-slate-900 dark:hover:bg-slate-800';
+
+        columns.forEach((column) => {
+          const td = document.createElement('td');
+          td.className = column.align === 'right' ? 'px-4 py-3 text-right text-slate-600 dark:text-slate-200' : 'px-4 py-3 text-slate-600 dark:text-slate-200';
+          td.textContent = column.format ? column.format(row[column.key]) : row[column.key];
+          tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    populateTable(payments, 'payments-body', [
+      { key: 'date' },
+      { key: 'invoice' },
+      { key: 'method' },
+      { key: 'amount', align: 'right', format: (value) => numberFormatter.format(value) },
+      { key: 'status', align: 'right' },
+    ]);
+
+    populateTable(payouts, 'payouts-body', [
+      { key: 'date' },
+      { key: 'type' },
+      { key: 'amount', align: 'right', format: (value) => numberFormatter.format(value) },
+      { key: 'status', align: 'right' },
+    ]);
+
+    updateSummary();
+
+    const projectedRevenueSlider = document.getElementById('projected-revenue');
+    const projectedRevenueInput = document.getElementById('projected-revenue-input');
+    const resetButton = document.getElementById('reset-estimator');
+
+    function updateProjection(projectedRevenue) {
+      const projectedTotalRevenue = totalReceived + projectedRevenue;
+      const projectedNetProfit = projectedTotalRevenue - totalInvested;
+      const projectedROI = totalInvested === 0 ? 0 : ((projectedNetProfit / totalInvested) * 100);
+
+      document.getElementById('projected-total-revenue').textContent = numberFormatter.format(projectedTotalRevenue);
+      document.getElementById('projected-net-profit').textContent = numberFormatter.format(projectedNetProfit);
+      document.getElementById('projected-roi').textContent = projectedROI.toFixed(1);
+    }
+
+    projectedRevenueSlider.addEventListener('input', (event) => {
+      const value = Number(event.target.value);
+      projectedRevenueInput.value = value;
+      updateProjection(value);
+    });
+
+    projectedRevenueInput.addEventListener('input', (event) => {
+      const value = Number(event.target.value || 0);
+      projectedRevenueSlider.value = value;
+      updateProjection(value);
+    });
+
+    resetButton.addEventListener('click', () => {
+      projectedRevenueSlider.value = 0;
+      projectedRevenueInput.value = 0;
+      updateProjection(0);
+    });
+
+    updateProjection(0);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
