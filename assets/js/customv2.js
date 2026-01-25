@@ -119,44 +119,6 @@ if (clientsWrapper) {
   });
 }
 
-// CO2 Modal functionality
-const co2ModalContainer = document.querySelector('#modal-co2');
-const co2Overlay = co2ModalContainer?.querySelector('[data-overlay]');
-const co2CloseBtn = co2ModalContainer?.querySelector('[data-modal-close-btn]');
-const co2InfoIcon = document.querySelector('.info-icon');
-
-// Modal toggle function
-const toggleCO2Modal = () => {
-  if (co2ModalContainer && co2Overlay) {
-    co2ModalContainer.classList.toggle('active');
-    co2Overlay.classList.toggle('active');
-  }
-}
-
-// Add click event to info icon
-if (co2InfoIcon) {
-  co2InfoIcon.addEventListener('click', () => {
-    toggleCO2Modal();
-  });
-}
-
-// Close modal when clicking the close button
-if (co2CloseBtn) {
-  co2CloseBtn.addEventListener('click', toggleCO2Modal);
-}
-
-// Close modal when clicking outside
-if (co2Overlay) {
-  co2Overlay.addEventListener('click', toggleCO2Modal);
-}
-
-// Close modal when pressing Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && co2ModalContainer?.classList.contains('active')) {
-    toggleCO2Modal();
-  }
-});
-
 // Add tooltip functionality for mobile
 document.addEventListener('DOMContentLoaded', function() {
   const infoIcon = document.querySelector('.info-icon');
@@ -174,6 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.innerWidth <= 768) {
         tooltip.classList.add('active');
         overlay.classList.add('active');
+      } else {
+        tooltip.classList.toggle('active');
+      }
+    });
+
+    // Close desktop tooltip when clicking outside
+    document.addEventListener('click', function() {
+      if (window.innerWidth > 768) {
+        tooltip.classList.remove('active');
       }
     });
 
